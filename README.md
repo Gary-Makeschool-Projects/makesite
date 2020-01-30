@@ -13,11 +13,16 @@ _Create your own custom Static Site Generator (like [Jekyll](https://jekyllrb.co
 
 ```bash
 📂 makesite
+├── LICENSE
 ├── README.md
-├── first-post.txt
-├── latest-post.txt
+├──📂 courpus
+│   ├── first-post.txt
+│   ├── hello.txt
+│   └── latest-post.txt
+├── go.mod
 ├── makesite.go
-└── template.tmpl
+└── 📂templates
+    └── index.html
 ```
 
 ## Getting Started

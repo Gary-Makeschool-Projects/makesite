@@ -11,8 +11,7 @@ import (
 )
 
 type favorite struct {
-	Color   string
-	Game    string
+	Title   string
 	Content string
 }
 
@@ -39,9 +38,10 @@ func parser(path string) string {
 
 		content = append(content, string(buf[:n]))
 	}
-
+	fmt.Print(content)
 	return strings.Join(content, " ")
 }
+
 func createFile(content string) []byte {
 	os.Create("/Users/ghost/go/src/github.com/imthaghost/ssg/example.html")
 	b := []byte(content)
@@ -52,7 +52,7 @@ func createFile(content string) []byte {
 
 func render(w http.ResponseWriter, r *http.Request) {
 
-	data := favorite{"Blue", "Call of Duty", "empty"}
+	data := favorite{"SSG", "Call of Duty"}
 
 	fp := path.Join("templates", "index.html")
 	tmpl, err := template.ParseFiles(fp)
@@ -70,12 +70,9 @@ func serve() {
 	http.ListenAndServe(":5000", nil)
 }
 func main() {
-
-	var content string
-
-	flag.StringVar(&content, "content", "", "Usage")
-
+	var file string
+	flag.StringVar(&file, "file", "", "Usage")
 	flag.Parse()
-
-	fmt.Println(content)
+	parser(file)
+	serve()
 }
