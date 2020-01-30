@@ -37,8 +37,8 @@ $ git remote add origin git@github.com:YOUR_GITHUB_USERNAME/makesite.git
 
 **For each task**:
 
-- Complete each task in the order they appear.
-- Use [GitHub Task List](https://help.github.com/en/github/managing-your-work-on-github/about-task-lists) syntax to update the task list.
+-   Complete each task in the order they appear.
+-   Use [GitHub Task List](https://help.github.com/en/github/managing-your-work-on-github/about-task-lists) syntax to update the task list.
 
 ### MVP
 
@@ -48,50 +48,50 @@ If you get stuck on any step, be sure to print the output to `stdout`!
 
 #### v1.0 Requirements
 
-- [ ] Read in the contents of the provided `first-post.txt` file.
-- [ ] Edit the provided HTML template (`template.tmpl`) to display the contents of `first-post.txt`.
-- [ ] Render the contents of `first-post.txt` using Go Templates and print it to stdout.
-- [ ] Write the HTML template to the filesystem to a file. Name it `first-post.html`.
-- [ ] Manually test the generated HTML page by running `/.makesite`. Double-click the `first-post.html` file that appears in your directory after running the command to open the generated page in your browser.
-- [ ] **Add, commit, and push to GitHub**.
-- [ ] Add a new flag to your command named `file`. This flag represents the name of any `.txt` file in the same directory as your program. Run `./makesite --file=latest-post.txt` to test.
-- [ ] Update the `save` function to use the input filename to generate a new HTML file. For example, if the input file is named `latest-post.txt`, the generated HTML file should be named `latest-post.html`.
-- [ ] **Add, commit, and push to GitHub**.
+-   [x] Read in the contents of the provided `first-post.txt` file.
+-   [x] Edit the provided HTML template (`template.tmpl`) to display the contents of `first-post.txt`.
+-   [x] Render the contents of `first-post.txt` using Go Templates and print it to stdout.
+-   [x] Write the HTML template to the filesystem to a file. Name it `first-post.html`.
+-   [x] Manually test the generated HTML page by running `/.makesite`. Double-click the `first-post.html` file that appears in your directory after running the command to open the generated page in your browser.
+-   [x] **Add, commit, and push to GitHub**.
+-   [x] Add a new flag to your command named `file`. This flag represents the name of any `.txt` file in the same directory as your program. Run `./makesite --file=latest-post.txt` to test.
+-   [x] Update the `save` function to use the input filename to generate a new HTML file. For example, if the input file is named `latest-post.txt`, the generated HTML file should be named `latest-post.html`.
+-   [x] **Add, commit, and push to GitHub**.
 
 #### v1.0 Stretch Challenges
 
-- [ ] Use Bootstrap, or another CSS framework, to enhance the style and readability of your template. _Get creative! Writing your very own website generator is a great opportunity to broadcast your style, personality, and development preferences to the world!_
+-   [ ] Use Bootstrap, or another CSS framework, to enhance the style and readability of your template. _Get creative! Writing your very own website generator is a great opportunity to broadcast your style, personality, and development preferences to the world!_
 
 ### v1.1
 
 #### v1.1 Requirements
 
-- [ ] Create 3 new `.txt` files for testing in the same directory as your project.
-- [ ] Add a new flag to the `makesite` command named `dir`.
-- [ ] Use the flag to find all `.txt` files in the given directory. Print them to `stdout`.
-- [ ] With the list of `.txt` files you found, generate an HTML page for each.
-- [ ] Run `./makesite --dir=.` to test in your local directory.
-- [ ] **Add, commit, and push to GitHub**.
+-   [x] Create 3 new `.txt` files for testing in the same directory as your project.
+-   [ ] Add a new flag to the `makesite` command named `dir`.
+-   [ ] Use the flag to find all `.txt` files in the given directory. Print them to `stdout`.
+-   [ ] With the list of `.txt` files you found, generate an HTML page for each.
+-   [ ] Run `./makesite --dir=.` to test in your local directory.
+-   [ ] **Add, commit, and push to GitHub**.
 
 #### v1.1 Stretch Challenges
 
-- [ ] Recursively find all `.txt` files in the given directory, as well as it's subdirectories. Print them to `stdout` to make sure. Generate an HTML page for each.
-- [ ] When your program finishes, print: `Success! Generated 5 pages.` The `Success!` substring must be <span style="color: green; font-weight:bold;">bold green</span>, and the count (`5`) must be **bold**.
-- [ ] Modify the success message to read: `Success! Generated 5 pages (18.2kB total).` Calculate the total by summing the size of each HTML file, then converting the total to kilobytes. Always return one significant digit after the decimal point.
-- [ ] Determine how long it took to execute your static site generator. Modify the success message to read: `Success! Generated 5 pages (18.2kB total) in 3.25 seconds.` Always return two significant digits after the decimal point.
-- [ ] Test your solutions to these stretch challenges on many different directories containing `.txt` files. Are there any ways to make your code faster?
+-   [ ] Recursively find all `.txt` files in the given directory, as well as it's subdirectories. Print them to `stdout` to make sure. Generate an HTML page for each.
+-   [ ] When your program finishes, print: `Success! Generated 5 pages.` The `Success!` substring must be <span style="color: green; font-weight:bold;">bold green</span>, and the count (`5`) must be **bold**.
+-   [ ] Modify the success message to read: `Success! Generated 5 pages (18.2kB total).` Calculate the total by summing the size of each HTML file, then converting the total to kilobytes. Always return one significant digit after the decimal point.
+-   [ ] Determine how long it took to execute your static site generator. Modify the success message to read: `Success! Generated 5 pages (18.2kB total) in 3.25 seconds.` Always return two significant digits after the decimal point.
+-   [ ] Test your solutions to these stretch challenges on many different directories containing `.txt` files. Are there any ways to make your code faster?
 
 ## Resources
 
 ### Lesson Plans
 
-- [**BEW 2.5**: Project #1 - SSGs](https://make-school-courses.github.io/BEW-2.5-Strongly-Typed-Ecosystems/#/Lessons/SSGProject): Code samples you can use to complete the MVP requirements.
-- [**BEW 2.5**: Files & Directories](https://make-school-courses.github.io/BEW-2.5-Strongly-Typed-Ecosystems/#/Lessons/FilesDirectories): Code samples you can use to complete v1.1 requirements.
+-   [**BEW 2.5**: Project #1 - SSGs](https://make-school-courses.github.io/BEW-2.5-Strongly-Typed-Ecosystems/#/Lessons/SSGProject): Code samples you can use to complete the MVP requirements.
+-   [**BEW 2.5**: Files & Directories](https://make-school-courses.github.io/BEW-2.5-Strongly-Typed-Ecosystems/#/Lessons/FilesDirectories): Code samples you can use to complete v1.1 requirements.
 
 ### Example Code
 
-- [**Go By Example**: Reading Files](https://gobyexample.com/reading-files)
-- [**Go By Example**: Writing Files](https://gobyexample.com/writing-files)
-- [**Go By Example**: Panic](https://gobyexample.com/panic)
-- [**GopherAcademy**: Using Go Templates](https://blog.gopheracademy.com/advent-2017/using-go-templates/)
-- [**rapid7.com**: Building a Simple CLI Tool with Golang](https://blog.rapid7.com/2016/08/04/build-a-simple-cli-tool-with-golang/)
+-   [**Go By Example**: Reading Files](https://gobyexample.com/reading-files)
+-   [**Go By Example**: Writing Files](https://gobyexample.com/writing-files)
+-   [**Go By Example**: Panic](https://gobyexample.com/panic)
+-   [**GopherAcademy**: Using Go Templates](https://blog.gopheracademy.com/advent-2017/using-go-templates/)
+-   [**rapid7.com**: Building a Simple CLI Tool with Golang](https://blog.rapid7.com/2016/08/04/build-a-simple-cli-tool-with-golang/)
