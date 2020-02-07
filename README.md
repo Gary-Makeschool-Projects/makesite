@@ -1,5 +1,7 @@
 # 🔗 makesite
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/imthaghost/makesite)](https://goreportcard.com/report/github.com/imthaghost/makesite)
+
 _Create your own custom Static Site Generator (like [Jekyll](https://jekyllrb.com/) or [Hugo](https://gohugo.io/)) by cloning and fulfilling the requirements in this repo!_
 
 ### 📚 Table of Contents
@@ -15,14 +17,14 @@ _Create your own custom Static Site Generator (like [Jekyll](https://jekyllrb.co
 📂 makesite
 ├── LICENSE
 ├── README.md
-├──📂 courpus
+├──📂 corpus
 │   ├── first-post.txt
 │   ├── hello.txt
 │   └── latest-post.txt
 ├── go.mod
 ├── makesite.go
 └── 📂templates
-    └── index.html
+    └── index.tmpl
 ```
 
 ## Getting Started

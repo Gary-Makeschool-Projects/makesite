@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"flag"
 	"fmt"
 	"html/template"
@@ -12,53 +13,67 @@ import (
 
 // structure for storing text file data
 type text struct {
-	Title   string
 	Content string
 }
+
 // flag parser
 func parser() (string, bool) {
 	var path string
 	var serve bool
-
 	flag.StringVar(&path, "file", "", "The path to the text file we will convert.")
 	flag.BoolVar(&serve, "", false, "Local hosting generated HTML file ")
 	flag.Parse()
-
+	// check if a file path was given in the flag
 	if path != "" {
 		return path, serve
 	}
-
 	flag.PrintDefaults()
 	return path, serve
 }
 
 // function for reading file content
 func read(path string) string {
-
 	// parse path and read file content
 	content, err := ioutil.ReadFile(path)
-	// show error
+	// nil check
 	if err != nil {
 		panic(err)
 	}
+	// return the contents of the file
 	return string(content)
 
 }
+
 // function for creation of template from data
-func createTemplate(content string) (*template.Template, data) {
-	contentType := text{Content: content, Title:}
+func createTemplate(content string) (*template.Template, text) {
+	contentType := text{Content: content}
 
-	tmpl, err := template.ParseFiles("index.tmpl")
-
+	tmpl, err := template.ParseFiles("templates/index.tmpl")
+	// nil check
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	// return the template and the content type
 	return tmpl, contentType
 }
-// function for rendering html 
+
+// writeHTML takes in data that then gets written to a HTML file
+func writeHTML(data string) string {
+	// template and content data
+	tmpl, contentType := createTemplate(data)
+
+	var buf bytes.Buffer
+
+	if err := tmpl.Execute(&buf, contentType); err != nil {
+		log.Fatal(err)
+	}
+
+	return buf.String()
+}
+
+// function for rendering html
 func render(w http.ResponseWriter, r *http.Request) {
-	data := text{"SSG", "Call of Duty"}
+	data := text{"SSG"}
 
 	fp := path.Join("templates", "index.html")
 
@@ -74,6 +89,7 @@ func render(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+
 // function for listening and serving file to localhost
 func server() {
 	http.HandleFunc("/", render)
@@ -85,6 +101,9 @@ func main() {
 	// check if path is empty
 	if path != "" {
 		content := read(path)
+		tmpl, data := createTemplate(content) // create the template
+		fmt.Print(data)
+		fmt.Print(tmpl)
 		// create server
 		if serve != false {
 			server()
