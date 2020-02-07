@@ -57,18 +57,21 @@ func createTemplate(content string) (*template.Template, text) {
 	return tmpl, contentType
 }
 
-// writeHTML takes in data that then gets written to a HTML file
-func writeHTML(data string) string {
-	// template and content data
-	tmpl, contentType := createTemplate(data)
-
+func writeHTML(tmpl *template.Template, contentType text) string {
 	var buf bytes.Buffer
 
 	if err := tmpl.Execute(&buf, contentType); err != nil {
 		log.Fatal(err)
 	}
 
+	fmt.Println(buf.String())
 	return buf.String()
+}
+
+func parseHTML(tmpl *template.Template, contentType text, fileName string) {
+	template := writeHTML(tmpl, contentType)
+
+	ioutil.WriteFile(fileName, []byte(template), 0666)
 }
 
 // function for rendering html
@@ -104,6 +107,7 @@ func main() {
 		tmpl, data := createTemplate(content) // create the template
 		fmt.Print(data)
 		fmt.Print(tmpl)
+		parseHTML(tmpl, data, "generated.html")
 		// create server
 		if serve != false {
 			server()
