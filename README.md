@@ -55,6 +55,7 @@ If you get stuck on any step, be sure to print the output to `stdout`!
 
 #### v1.0 Requirements
 
+-   [x] Edit line `4` of `README.md`. Change this line to the following, replacing `YOUR_USERNAME` and `YOUR_REPONAME` with your GitHub username and repository name respectively.
 -   [x] Read in the contents of the provided `first-post.txt` file.
 -   [x] Edit the provided HTML template (`template.tmpl`) to display the contents of `first-post.txt`.
 -   [x] Render the contents of `first-post.txt` using Go Templates and print it to stdout.
@@ -67,7 +68,7 @@ If you get stuck on any step, be sure to print the output to `stdout`!
 
 #### v1.0 Stretch Challenges
 
--   [ ] Use Bootstrap, or another CSS framework, to enhance the style and readability of your template. _Get creative! Writing your very own website generator is a great opportunity to broadcast your style, personality, and development preferences to the world!_
+-   [x] Use Bootstrap, or another CSS framework, to enhance the style and readability of your template. _Get creative! Writing your very own website generator is a great opportunity to broadcast your style, personality, and development preferences to the world!_
 
 ### v1.1
 
@@ -88,12 +89,24 @@ If you get stuck on any step, be sure to print the output to `stdout`!
 -   [ ] Determine how long it took to execute your static site generator. Modify the success message to read: `Success! Generated 5 pages (18.2kB total) in 3.25 seconds.` Always return two significant digits after the decimal point.
 -   [ ] Test your solutions to these stretch challenges on many different directories containing `.txt` files. Are there any ways to make your code faster?
 
+### v1.2
+
+#### v1.2 Requirements
+
+-   [ ] Initialize Go modules in your project.
+-   [ ] Add any third party library to your project to enhance it's functionality. Some ideas you might consider include **_(CHOOSE ONLY ONE)_**:
+    -   [ ] Translating page content using Google Translate.
+    -   [ ] Parse Markdown (`.md`) files and transform them into HTML. `#` through `######` should translate to `<h1>` through `<h6>` elements.
+    -   [ ] **_FILL IN THE BLANK_**: `I will use the __________________________________ library. The documentation is located at __________________________________. My goal is to use it to __________________________________.`
+-   [ ] **Add, commit, and push to GitHub**.
+
 ## Resources
 
 ### Lesson Plans
 
 -   [**BEW 2.5**: Project #1 - SSGs](https://make-school-courses.github.io/BEW-2.5-Strongly-Typed-Ecosystems/#/Lessons/SSGProject): Code samples you can use to complete the MVP requirements.
 -   [**BEW 2.5**: Files & Directories](https://make-school-courses.github.io/BEW-2.5-Strongly-Typed-Ecosystems/#/Lessons/FilesDirectories): Code samples you can use to complete v1.1 requirements.
+-   [**BEW 2.5**: Files & Directories](https://make-school-courses.github.io/BEW-2.5-Strongly-Typed-Ecosystems/#/Lessons/3rdPartyLibs): Code samples you can use to complete v1.2 requirements.
 
 ### Example Code
 

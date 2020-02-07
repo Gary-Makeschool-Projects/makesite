@@ -20,6 +20,8 @@ type text struct {
 func parser() (string, bool) {
 	var path string
 	var serve bool
+
+	//flag.StringVar(&dir, "directory", "", "The path to the directory")
 	flag.StringVar(&path, "file", "", "The path to the text file we will convert.")
 	flag.BoolVar(&serve, "", false, "Local hosting generated HTML file ")
 	flag.Parse()
@@ -101,6 +103,10 @@ func server() {
 func main() {
 	// parse all user flags
 	path, serve := parser()
+
+	// if dir != "" {
+	// 	fmt.Print(dir)
+	// }
 	// check if path is empty
 	if path != "" {
 		content := read(path)
