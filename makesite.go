@@ -9,6 +9,9 @@ import (
 	"log"
 	"net/http"
 	"path"
+	"path/filepath"
+
+	"gopkg.in/russross/blackfriday.v2"
 )
 
 // structure for storing text file data
@@ -20,16 +23,9 @@ type text struct {
 func parser() (string, bool) {
 	var path string
 	var serve bool
-
-	//flag.StringVar(&dir, "directory", "", "The path to the directory")
 	flag.StringVar(&path, "file", "", "The path to the text file we will convert.")
 	flag.BoolVar(&serve, "", false, "Local hosting generated HTML file ")
 	flag.Parse()
-	// check if a file path was given in the flag
-	if path != "" {
-		return path, serve
-	}
-	flag.PrintDefaults()
 	return path, serve
 }
 
@@ -76,6 +72,16 @@ func parseHTML(tmpl *template.Template, contentType text, fileName string) {
 	ioutil.WriteFile(fileName, []byte(template), 0666)
 }
 
+func convertMarkdown(path string) {
+	content, err := ioutil.ReadFile(path)
+	// nil check
+	if err != nil {
+		panic(err)
+	}
+	output := blackfriday.Run(content)
+	ioutil.WriteFile("markdown.html", output, 0644)
+}
+
 // function for rendering html
 func render(w http.ResponseWriter, r *http.Request) {
 	data := text{"SSG"}
@@ -104,19 +110,22 @@ func main() {
 	// parse all user flags
 	path, serve := parser()
 
-	// if dir != "" {
-	// 	fmt.Print(dir)
-	// }
-	// check if path is empty
 	if path != "" {
-		content := read(path)
-		tmpl, data := createTemplate(content) // create the template
-		fmt.Print(data)
-		fmt.Print(tmpl)
-		parseHTML(tmpl, data, "generated.html")
+		extension := filepath.Ext(path)
+		if extension == ".txt" {
+			content := read(path)
+			tmpl, data := createTemplate(content) // create the template
+			fmt.Print(data)
+			fmt.Print(tmpl)
+			parseHTML(tmpl, data, "generated.html")
+		} else if extension == ".md" {
+			convertMarkdown(path)
+		}
+
 		// create server
 		if serve != false {
 			server()
+
 		}
 
 	} else {
