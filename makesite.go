@@ -20,13 +20,15 @@ type text struct {
 }
 
 // flag parser
-func parser() (string, bool) {
+func parser() (string, bool, string) {
 	var path string
 	var serve bool
+	var dir string
 	flag.StringVar(&path, "file", "", "The path to the text file we will convert.")
 	flag.BoolVar(&serve, "", false, "Local hosting generated HTML file ")
+	flag.StringVar(&dir, "dir", "", "Path to directory")
 	flag.Parse()
-	return path, serve
+	return path, serve, dir
 }
 
 // function for reading file content
@@ -62,7 +64,6 @@ func writeHTML(tmpl *template.Template, contentType text) string {
 		log.Fatal(err)
 	}
 
-	fmt.Println(buf.String())
 	return buf.String()
 }
 
@@ -79,7 +80,35 @@ func convertMarkdown(path string) {
 		panic(err)
 	}
 	output := blackfriday.Run(content)
-	ioutil.WriteFile("markdown.html", output, 0644)
+	name := getFileFromPath(path)
+	ioutil.WriteFile(name+".html", output, 0666)
+}
+
+func getFileFromPath(path string) string {
+	file := filepath.Base(path) // file name
+	// get file extension
+	extension := filepath.Ext(file)
+	// remove the file extension
+	name := file[0 : len(file)-len(extension)]
+	// return the file name
+	return name
+}
+
+func getFilesFromDirectory(path string) []string {
+	allfiles := []string{}
+
+	files, err := ioutil.ReadDir(path)
+	if err != nil {
+		panic(err)
+	}
+	for _, f := range files {
+		extension := filepath.Ext(f.Name())
+		if extension == ".txt" {
+			allfiles = append(allfiles, path+"/"+f.Name())
+		}
+
+	}
+	return allfiles
 }
 
 // function for rendering html
@@ -108,18 +137,23 @@ func server() {
 }
 func main() {
 	// parse all user flags
-	path, serve := parser()
+	path, serve, dir := parser()
 
 	if path != "" {
+		// check the file extension type
 		extension := filepath.Ext(path)
+		// get file name
+		name := getFileFromPath(path)
+		// if passed a txt file parse the txt file
 		if extension == ".txt" {
 			content := read(path)
 			tmpl, data := createTemplate(content) // create the template
-			fmt.Print(data)
-			fmt.Print(tmpl)
-			parseHTML(tmpl, data, "generated.html")
+			parseHTML(tmpl, data, name+".html")
+			// if passed a markdown file parse the markdown
 		} else if extension == ".md" {
 			convertMarkdown(path)
+		} else {
+			fmt.Print("cannot parse this file type")
 		}
 
 		// create server
@@ -128,9 +162,20 @@ func main() {
 
 		}
 
+	} else if dir != "" {
+		files := getFilesFromDirectory(dir) // list of all txt file in director
+		ammount := len(files)               // amount of files in directory that will be generated
+		for _, file := range files {
+			name := getFileFromPath(file)
+			content := read(file)
+			tmpl, data := createTemplate(content) // create the template
+			parseHTML(tmpl, data, name+".html")
+		}
+		fmt.Println("Success! ", ammount, " files were generated")
+
 	} else {
-		// no specified path
-		fmt.Print("You must provide a path to file with --file")
+		// no specified flag
+		fmt.Print("You must provide a flag --file or -dir")
 	}
 
 }
