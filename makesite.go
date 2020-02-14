@@ -7,10 +7,9 @@ import (
 	"html/template"
 	"io/ioutil"
 	"log"
-	"net/http"
-	"path"
 	"path/filepath"
 
+	"github.com/labstack/echo"
 	"gopkg.in/russross/blackfriday.v2"
 )
 
@@ -111,29 +110,11 @@ func getFilesFromDirectory(path string) []string {
 	return allfiles
 }
 
-// function for rendering html
-func render(w http.ResponseWriter, r *http.Request) {
-	data := text{"SSG"}
-
-	fp := path.Join("templates", "index.html")
-
-	tmpl, err := template.ParseFiles(fp)
-
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	if err := tmpl.Execute(w, data); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-
-}
-
 // function for listening and serving file to localhost
-func server() {
-	http.HandleFunc("/", render)
-	http.ListenAndServe(":5000", nil)
+func server(filename string) {
+	e := echo.New()
+	e.File("/", filename)
+	e.Logger.Fatal(e.Start(":5000"))
 }
 func main() {
 	// parse all user flags
@@ -148,18 +129,20 @@ func main() {
 		if extension == ".txt" {
 			content := read(path)
 			tmpl, data := createTemplate(content) // create the template
+			fmt.Println("Generating HTML...")
 			parseHTML(tmpl, data, name+".html")
+			fmt.Println("Serving file..")
+			// serve the new file
+			server(name + ".html")
 			// if passed a markdown file parse the markdown
 		} else if extension == ".md" {
 			convertMarkdown(path)
+			server(name + ".html")
 		} else {
 			fmt.Print("cannot parse this file type")
 		}
-
-		// create server
-		if serve != false {
-			server()
-
+		if serve == true {
+			fmt.Print("serving")
 		}
 
 	} else if dir != "" {
@@ -170,6 +153,8 @@ func main() {
 			content := read(file)
 			tmpl, data := createTemplate(content) // create the template
 			parseHTML(tmpl, data, name+".html")
+			// serve the new file
+
 		}
 		fmt.Println("Success! ", ammount, " files were generated")
 
